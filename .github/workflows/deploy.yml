@@ -28,6 +28,9 @@ jobs:
       # build รัน validate-data ให้เองอยู่แล้ว ข้อมูลผิดจะไม่ขึ้นเว็บ
       - run: npm run build
       - uses: actions/configure-pages@v5
+        with:
+          # เปิด Pages ให้เองรอบแรก จะได้ไม่ต้องไปกดในหน้า Settings
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
