@@ -44,7 +44,7 @@ async function share() {
     </div>
 
     <div>
-      <p class="font-display text-4xl tracking-wide text-cream">{{ answer.nickname }}</p>
+      <p class="font-display text-3xl font-bold tracking-tight text-cream">{{ answer.nickname }}</p>
       <p class="mt-1 max-w-sm text-sm text-bronze italic">“{{ answer.reveal.signature }}”</p>
     </div>
 

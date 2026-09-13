@@ -29,7 +29,7 @@ const src = computed(() => `${import.meta.env.BASE_URL}${props.friend.photo}`)
       class="grid h-full w-full place-items-center bg-gradient-to-br from-teal to-ink"
       :style="{ filter: `blur(${Math.min(blur, 8)}px)` }"
     >
-      <span class="font-display text-6xl text-bronze/60">{{ friend.nickname.slice(0, 2) }}</span>
+      <span class="font-display text-5xl font-bold text-bronze/60">{{ friend.nickname.slice(0, 2) }}</span>
     </div>
   </div>
 </template>

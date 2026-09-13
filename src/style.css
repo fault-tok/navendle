@@ -14,7 +14,8 @@
   --color-miss: #3a4a52;
 
   --font-sans: 'IBM Plex Sans Thai', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Bebas Neue', 'IBM Plex Sans Thai', sans-serif;
+  /* ใช้ IBM Plex Sans Thai ทั้งเว็บ — display ต่างจาก sans แค่น้ำหนักกับระยะตัวอักษร */
+  --font-display: 'IBM Plex Sans Thai', ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {

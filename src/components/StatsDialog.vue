@@ -24,7 +24,7 @@ function confirmReset() {
         { label: 'ติดกัน', value: stats.streak },
         { label: 'สูงสุด', value: stats.maxStreak },
       ]" :key="s.label">
-        <p class="font-display text-3xl text-bronze">{{ s.value }}</p>
+        <p class="font-display text-2xl font-bold tabular-nums text-bronze">{{ s.value }}</p>
         <p class="text-[11px] text-cream/45">{{ s.label }}</p>
       </div>
     </div>

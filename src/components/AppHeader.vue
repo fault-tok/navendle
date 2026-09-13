@@ -8,7 +8,7 @@ const logo = `${import.meta.env.BASE_URL}logo-n.png`
   <header class="flex items-center gap-3 px-4 pt-5 pb-3 sm:px-6">
     <img :src="logo" alt="" class="h-10 w-10 shrink-0 object-contain sm:h-12 sm:w-12" />
     <div class="min-w-0 flex-1">
-      <h1 class="wordmark font-display text-3xl leading-none tracking-wide sm:text-4xl">NAVENDLE</h1>
+      <h1 class="wordmark font-display text-2xl leading-tight font-bold tracking-tight sm:text-3xl">NAVENDLE</h1>
       <p class="truncate text-xs text-cream/50">ทายเพื่อนในกลุ่ม NAVEN วันละข้อ</p>
     </div>
 

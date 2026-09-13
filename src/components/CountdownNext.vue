@@ -28,6 +28,6 @@ onBeforeUnmount(() => window.clearInterval(timer))
 
 <template>
   <p class="text-center text-xs text-cream/45">
-    ข้อถัดไปอีก <span class="font-mono font-semibold text-bronze">{{ label }}</span>
+    ข้อถัดไปอีก <span class="font-semibold tabular-nums text-bronze">{{ label }}</span>
   </p>
 </template>

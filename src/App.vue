@@ -70,7 +70,7 @@ onMounted(() => {
       <!-- ยังไม่มีข้อมูลเพื่อนพอเล่น -->
       <div v-if="friends.length < 2" class="card rounded-2xl p-6 text-center text-sm text-cream/70">
         <p class="mb-2 text-lg">ยังไม่มีข้อมูลเพื่อนพอเล่น</p>
-        <p class="text-cream/50">เติมข้อมูลใน <code class="text-bronze">src/data/friends.json</code> อย่างน้อย 2 คน แล้วรัน <code class="text-bronze">npm run validate</code></p>
+        <p class="text-cream/50">เติมข้อมูลใน <code class="font-sans font-semibold text-bronze">src/data/friends.json</code> อย่างน้อย 2 คน แล้วรัน <code class="font-sans font-semibold text-bronze">npm run validate</code></p>
       </div>
 
       <template v-else>
