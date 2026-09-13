@@ -1,0 +1,85 @@
+@import 'tailwindcss';
+
+/* โทนสีดึงจากโลโก้ 2 ไฟล์: ตัว N ไล่เฉด cream→teal และตราโล่ NAVEN สีบรอนซ์ */
+@theme {
+  --color-cream: #f7f0da;
+  --color-bronze: #c9a47a;
+  --color-bronze-dim: #8a6f4e;
+  --color-teal: #1e4351;
+  --color-teal-deep: #15303a;
+  --color-ink: #0d1114;
+
+  --color-hit: #2f8f5b;
+  --color-near: #d9a441;
+  --color-miss: #3a4a52;
+
+  --font-sans: 'IBM Plex Sans Thai', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bebas Neue', 'IBM Plex Sans Thai', sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background:
+    radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--color-teal) 60%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--color-teal-deep) 0%, var(--color-ink) 100%);
+  background-attachment: fixed;
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ตัวอักษรวิ่งของหัวเว็บ ใช้ไล่เฉดเดียวกับโลโก้ตัว N */
+.wordmark {
+  background: linear-gradient(155deg, var(--color-cream) 0%, var(--color-bronze) 45%, var(--color-teal) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card {
+  background: color-mix(in srgb, var(--color-ink) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-bronze) 28%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+@keyframes tile-flip {
+  0% { transform: rotateX(-90deg); opacity: 0; }
+  60% { transform: rotateX(12deg); opacity: 1; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+.tile-flip {
+  animation: tile-flip 420ms ease-out both;
+  transform-origin: center;
+}
+
+@keyframes pop-in {
+  from { transform: scale(0.94); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.pop-in { animation: pop-in 260ms ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tile-flip,
+  .pop-in {
+    animation: none !important;
+  }
+}
+
+/* สกอร์ลบาร์ของตารางผลทายบนมือถือ */
+.scroll-x {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-bronze-dim) transparent;
+}
+.scroll-x::-webkit-scrollbar { height: 6px; }
+.scroll-x::-webkit-scrollbar-thumb {
+  background: var(--color-bronze-dim);
+  border-radius: 999px;
+}
