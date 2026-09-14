@@ -94,13 +94,13 @@ describe('numeric / numericFuzzy (ยังมีในเอนจิน เผ
   })
 })
 
-describe('ordinal (จำนวนแฟนเก่า)', () => {
-  const exTier = byKey('exTier')
+describe('ordinal (ยังมีในเอนจิน เผื่อเพิ่มคอลัมน์ใหม่)', () => {
+  const tier: AttrDef = { key: 't', label: 't', type: 'ordinal', scale: ['น้อย', 'กลาง', 'มาก'] }
   it('ตรงเป็นเขียว', () => {
-    expect(compareAttr(exTier, 'กลาง', 'กลาง')).toEqual({ state: 'hit' })
+    expect(compareAttr(tier, 'กลาง', 'กลาง')).toEqual({ state: 'hit' })
   })
   it('บอกทิศว่าคำตอบมากกว่าหรือน้อยกว่า', () => {
-    expect(compareAttr(exTier, 'น้อย', 'มาก')).toEqual({ state: 'miss', direction: 'up' })
-    expect(compareAttr(exTier, 'มาก', 'น้อย')).toEqual({ state: 'miss', direction: 'down' })
+    expect(compareAttr(tier, 'น้อย', 'มาก')).toEqual({ state: 'miss', direction: 'up' })
+    expect(compareAttr(tier, 'มาก', 'น้อย')).toEqual({ state: 'miss', direction: 'down' })
   })
 })

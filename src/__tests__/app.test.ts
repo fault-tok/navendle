@@ -4,6 +4,7 @@ import App from '../App.vue'
 import { friends } from '../data/roster'
 import { pickDaily } from '../game/daily'
 import { useDayIndex } from '../composables/useGame'
+import { ATTRIBUTES } from '../data/attributes'
 
 async function mountApp() {
   const wrapper = mount(App, { attachTo: document.body })
@@ -41,7 +42,7 @@ describe('App', () => {
     await guessNickname(wrapper, wrong.nickname)
 
     expect(wrapper.text()).toContain(wrong.nickname)
-    expect(wrapper.findAll('.tile-in').length).toBe(9)
+    expect(wrapper.findAll('.tile-in').length).toBe(ATTRIBUTES.length)
     expect(wrapper.text()).not.toContain('ถูกต้อง!')
   })
 
@@ -65,7 +66,7 @@ describe('App', () => {
 
     const second = await mountApp()
     expect(second.text()).toContain(wrong.nickname)
-    expect(second.findAll('.tile-in').length).toBe(9)
+    expect(second.findAll('.tile-in').length).toBe(ATTRIBUTES.length)
   })
 
   it('สลับไปโหมดอิโมจิแล้วได้คนละคำตอบกับคลาสสิก', async () => {

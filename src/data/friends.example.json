@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "group": "NAVEN",
   "updatedAt": "2026-09-15",
   "friends": [
@@ -19,7 +19,6 @@
           "แบดมินตัน"
         ],
         "football": "CM",
-        "exTier": "กลาง",
         "status": "โสด",
         "vibe": [
           "สายเกม",
@@ -54,7 +53,6 @@
           "วิ่ง"
         ],
         "football": "CB",
-        "exTier": "มาก",
         "status": "มีแฟน",
         "vibe": [
           "สายฟิต",
@@ -89,7 +87,6 @@
           "อีสปอร์ต"
         ],
         "football": "GK",
-        "exTier": "น้อย",
         "status": "แต่งงานแล้ว",
         "vibe": [
           "สายบ้าน",

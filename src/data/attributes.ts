@@ -18,8 +18,6 @@ export const FOOTBALL_GROUP_LABELS = {
   NONE: 'ไม่เล่นบอล',
 } as const
 
-export const EX_TIERS = ['น้อย', 'กลาง', 'มาก'] as const
-
 /** ตัวเลือกมาตรฐาน — ไม่บังคับให้เลือกจากลิสต์ แต่ validate จะเตือนถ้าใส่ค่านอกลิสต์ เพื่อกันพิมพ์ไม่ตรงกัน */
 export const SPORT_OPTIONS = [
   'ฟุตบอล', 'ฟุตซอล', 'บาสเกตบอล', 'วอลเลย์บอล', 'แบดมินตัน', 'ปิงปอง',
@@ -74,13 +72,6 @@ export const ATTRIBUTES: readonly AttrDef[] = [
     groups: FOOTBALL_GROUPS,
     groupLabels: FOOTBALL_GROUP_LABELS,
     hint: 'เหลือง = คนละตำแหน่งแต่แนวเดียวกัน',
-  },
-  {
-    key: 'exTier',
-    label: 'เคยมีแฟน',
-    type: 'ordinal',
-    scale: EX_TIERS,
-    hint: 'น้อย = ไม่เกิน 2 · กลาง = 3–5 · มาก = เกิน 5',
   },
   {
     key: 'status',

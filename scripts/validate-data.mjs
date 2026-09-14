@@ -35,7 +35,6 @@ const attributes = readAttributes()
 const sportOptions = readStringArray('src/data/attributes.ts', 'SPORT_OPTIONS')
 const vibeOptions = readStringArray('src/data/attributes.ts', 'VIBE_OPTIONS')
 const statusOptions = readStringArray('src/data/attributes.ts', 'STATUS_OPTIONS')
-const exTiers = readStringArray('src/data/attributes.ts', 'EX_TIERS')
 const weekdayOptions = readStringArray('src/data/attributes.ts', 'WEEKDAY_OPTIONS')
 const provinces = readStringArray('src/data/provinces.ts', 'PROVINCES')
 const footballPositions = Object.keys(
@@ -51,7 +50,6 @@ const optionsByKey = {
   sports: sportOptions,
   vibe: vibeOptions,
   status: statusOptions,
-  exTier: exTiers,
   province: provinces,
   football: footballPositions,
 }
@@ -132,7 +130,7 @@ for (const [i, f] of data.friends.entries()) {
     if (options && !options.includes(v)) {
       const msg = `[${who}] attrs.${def.key} = "${v}" ไม่อยู่ในลิสต์ที่กำหนด`
       // จังหวัด/ตำแหน่งบอล/tier ต้องตรงลิสต์เป๊ะ เพราะเกมใช้เทียบตรงๆ
-      if (['province', 'football', 'exTier', 'status', 'birthday'].includes(def.key)) fail(msg)
+      if (['province', 'football', 'status', 'birthday'].includes(def.key)) fail(msg)
       else warn(msg)
     }
   }
