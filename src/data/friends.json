@@ -26,17 +26,17 @@
     },
     {
       "id": "kaitok",
-      "nickname": "ไข่ตอก",
+      "nickname": "ไก่ต๊อก",
       "aliases": ["kaitok"],
       "photo": "friends/kaitok.jpg",
       "attrs": {
-        "birthday": "อังคาร",
-        "height": 170,
+        "birthday": "จันทร์",
+        "height": 174,
         "sports": ["ฟุตบอล", "ยิม"],
         "football": "ST",
         "status": "โสด",
         "vibe": ["สายกิน", "สายเที่ยว"],
-        "job": "ค้าขาย",
+        "job": "โปรแกรมเมอร์",
         "province": "ศรีสะเกษ"
       },
       "reveal": {
@@ -47,7 +47,7 @@
     },
     {
       "id": "kan",
-      "nickname": "กัน",
+      "nickname": "กานต์",
       "aliases": ["kan"],
       "photo": "friends/kan.jpg",
       "attrs": {
