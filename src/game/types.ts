@@ -16,6 +16,7 @@ export type AttrType =
   | 'grouped' // มีกลุ่มแม่ เช่น ตำแหน่งบอล CM อยู่กลุ่ม MF
   | 'numeric' // ตัวเลข ตรง = เขียว ไม่ตรง = เทา + ลูกศร
   | 'numericFuzzy' // ตัวเลข ห่างไม่เกิน tolerance = เหลือง + ลูกศร
+  | 'banded' // ตัวเลขที่หั่นเป็นช่วง เช่น ส่วนสูงช่วงละ 5 ซม. ช่วงเดียวกัน = เขียว ช่วงติดกัน = เหลือง + ลูกศร (ซ่อนเลขจริง)
   | 'ordinal' // ค่ามีลำดับ เช่น น้อย < กลาง < มาก
 
 interface AttrBase {
@@ -32,6 +33,7 @@ export type AttrDef = AttrBase &
     | { type: 'grouped'; groups: Readonly<Record<string, string>>; groupLabels: Readonly<Record<string, string>> }
     | { type: 'numeric'; suffix?: string }
     | { type: 'numericFuzzy'; tolerance: number; suffix?: string }
+    | { type: 'banded'; band: number; suffix?: string }
     | { type: 'ordinal'; scale: readonly string[] }
   )
 

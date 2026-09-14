@@ -28,7 +28,7 @@ describe('App', () => {
 
   it('เปิดมาเจอหัวเว็บและช่องพิมพ์ชื่อ', async () => {
     const wrapper = await mountApp()
-    expect(wrapper.text()).toContain('NAVENDLE')
+    expect(wrapper.text()).toContain('navendle')
     expect(wrapper.find('input[type="text"]').exists()).toBe(true)
     expect(wrapper.text()).toContain('คลาสสิก')
   })
@@ -41,7 +41,7 @@ describe('App', () => {
     await guessNickname(wrapper, wrong.nickname)
 
     expect(wrapper.text()).toContain(wrong.nickname)
-    expect(wrapper.findAll('.tile-flip').length).toBe(9)
+    expect(wrapper.findAll('.tile-in').length).toBe(9)
     expect(wrapper.text()).not.toContain('ถูกต้อง!')
   })
 
@@ -65,7 +65,7 @@ describe('App', () => {
 
     const second = await mountApp()
     expect(second.text()).toContain(wrong.nickname)
-    expect(second.findAll('.tile-flip').length).toBe(9)
+    expect(second.findAll('.tile-in').length).toBe(9)
   })
 
   it('สลับไปโหมดอิโมจิแล้วได้คนละคำตอบกับคลาสสิก', async () => {

@@ -49,27 +49,48 @@ describe('grouped (ตำแหน่งบอล)', () => {
   })
 })
 
-describe('numeric (ปีเกิด)', () => {
-  const birthYear = byKey('birthYear')
-  it('ตรงเป็นเขียวและไม่มีลูกศร', () => {
-    expect(compareAttr(birthYear, 1995, 1995)).toEqual({ state: 'hit' })
+describe('วันเกิด (exact 7 วัน)', () => {
+  const birthday = byKey('birthday')
+  it('วันเดียวกันเป็นเขียว คนละวันเป็นเทา ไม่มีลูกศร', () => {
+    expect(compareAttr(birthday, 'จันทร์', 'จันทร์')).toEqual({ state: 'hit' })
+    expect(compareAttr(birthday, 'จันทร์', 'เสาร์')).toEqual({ state: 'miss' })
   })
-  it('ลูกศรชี้ไปทางคำตอบจริง', () => {
-    expect(compareAttr(birthYear, 1990, 1995)).toEqual({ state: 'miss', direction: 'up' })
-    expect(compareAttr(birthYear, 1999, 1995)).toEqual({ state: 'miss', direction: 'down' })
+  it('วันติดกันก็ยังเป็นเทา — วันเกิดไม่มีใกล้เคียง', () => {
+    expect(compareAttr(birthday, 'จันทร์', 'อังคาร')).toEqual({ state: 'miss' })
   })
 })
 
-describe('numericFuzzy (ส่วนสูง tolerance 4)', () => {
+describe('banded (ส่วนสูงช่วงละ 5 ซม.)', () => {
   const height = byKey('height')
-  it('ห่าง 4 ซม. เป็นเหลือง แต่ 5 ซม. เป็นเทา', () => {
-    expect(compareAttr(height, 171, 175)).toEqual({ state: 'near', direction: 'up' })
-    expect(compareAttr(height, 170, 175)).toEqual({ state: 'miss', direction: 'up' })
-    expect(compareAttr(height, 179, 175)).toEqual({ state: 'near', direction: 'down' })
-    expect(compareAttr(height, 180, 175)).toEqual({ state: 'miss', direction: 'down' })
-  })
-  it('ตรงเป๊ะเป็นเขียว', () => {
+  it('อยู่ช่วงเดียวกันเป็นเขียว ถึงเลขจริงจะไม่เท่ากัน', () => {
     expect(compareAttr(height, 175, 175)).toEqual({ state: 'hit' })
+    expect(compareAttr(height, 175, 179)).toEqual({ state: 'hit' })
+    expect(compareAttr(height, 179, 175)).toEqual({ state: 'hit' })
+  })
+  it('ช่วงติดกันเป็นเหลืองพร้อมลูกศร', () => {
+    expect(compareAttr(height, 174, 175)).toEqual({ state: 'near', direction: 'up' })
+    expect(compareAttr(height, 180, 179)).toEqual({ state: 'near', direction: 'down' })
+  })
+  it('ห่างเกิน 1 ช่วงเป็นเทา', () => {
+    expect(compareAttr(height, 169, 175)).toEqual({ state: 'miss', direction: 'up' })
+    expect(compareAttr(height, 185, 179)).toEqual({ state: 'miss', direction: 'down' })
+  })
+  it('ห่างแค่ 1 ซม. แต่คนละช่วง ยังเป็นเหลืองไม่ใช่เขียว', () => {
+    expect(compareAttr(height, 174, 175)).toEqual({ state: 'near', direction: 'up' })
+  })
+})
+
+describe('numeric / numericFuzzy (ยังมีในเอนจิน เผื่อเพิ่มคอลัมน์ใหม่)', () => {
+  const numeric: AttrDef = { key: 'n', label: 'n', type: 'numeric' }
+  const fuzzy: AttrDef = { key: 'f', label: 'f', type: 'numericFuzzy', tolerance: 4 }
+  it('numeric ตรงเป็นเขียว ไม่ตรงมีลูกศร', () => {
+    expect(compareAttr(numeric, 1995, 1995)).toEqual({ state: 'hit' })
+    expect(compareAttr(numeric, 1990, 1995)).toEqual({ state: 'miss', direction: 'up' })
+    expect(compareAttr(numeric, 1999, 1995)).toEqual({ state: 'miss', direction: 'down' })
+  })
+  it('numericFuzzy ห่างไม่เกิน tolerance เป็นเหลือง', () => {
+    expect(compareAttr(fuzzy, 171, 175)).toEqual({ state: 'near', direction: 'up' })
+    expect(compareAttr(fuzzy, 170, 175)).toEqual({ state: 'miss', direction: 'up' })
   })
 })
 

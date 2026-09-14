@@ -10,23 +10,29 @@ const glyphs = computed(() => {
 })
 
 // เริ่มเปิด 1 ตัว แล้วเปิดเพิ่มทีละตัวต่อการทายผิด 1 ครั้ง
-const shown = computed(() => (props.revealAll ? glyphs.value.length : Math.min(1 + props.wrongCount, glyphs.value.length)))
+const shown = computed(() =>
+  props.revealAll ? glyphs.value.length : Math.min(1 + props.wrongCount, glyphs.value.length),
+)
 </script>
 
 <template>
-  <div class="card flex flex-col items-center gap-3 rounded-2xl px-4 py-7">
-    <p class="text-sm text-cream/50">อิโมจิบอกคาแรคเตอร์ของใคร?</p>
+  <section class="flex flex-col items-center gap-3.5 rounded-[28px] bg-surface-low px-5 py-7">
+    <p class="m-0 text-sm leading-5 text-on-surface-var">อิโมจิบอกคาแรคเตอร์ของใคร?</p>
     <div class="flex flex-wrap justify-center gap-3">
       <span
         v-for="(g, i) in glyphs"
         :key="i"
-        class="grid h-14 w-14 place-items-center rounded-xl border text-3xl transition-all duration-300 sm:h-16 sm:w-16 sm:text-4xl"
-        :class="i < shown ? 'pop-in border-bronze/40 bg-bronze/10' : 'border-bronze/15 bg-ink/40'"
+        class="grid h-16 w-16 place-items-center rounded-[20px] border transition-colors duration-200"
+        :class="
+          i < shown
+            ? 'pop-in border-primary-border bg-primary-container text-[32px] text-on-primary-container'
+            : 'border-dashed border-outline-var bg-surface-c text-xl text-outline'
+        "
       >
         <span v-if="i < shown">{{ g }}</span>
-        <span v-else aria-hidden="true" class="text-lg text-cream/25">?</span>
+        <span v-else aria-hidden="true">?</span>
       </span>
     </div>
-    <p v-if="shown < glyphs.length" class="text-xs text-cream/40">ทายผิดอีก 1 ครั้ง เปิดเพิ่มอีก 1 ตัว</p>
-  </div>
+    <p v-if="shown < glyphs.length" class="m-0 text-xs leading-4 text-outline">ทายผิดอีก 1 ครั้ง เปิดเพิ่มอีก 1 ตัว</p>
+  </section>
 </template>

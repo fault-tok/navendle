@@ -27,7 +27,7 @@ onBeforeUnmount(() => window.clearInterval(timer))
 </script>
 
 <template>
-  <p class="text-center text-xs text-cream/45">
-    ข้อถัดไปอีก <span class="font-semibold tabular-nums text-bronze">{{ label }}</span>
+  <p class="m-0 text-xs leading-4 text-outline">
+    ข้อใหม่ในอีก <span class="font-medium tabular-nums">{{ label }}</span>
   </p>
 </template>

@@ -2,40 +2,52 @@
 import { computed } from 'vue'
 import BaseDialog from './BaseDialog.vue'
 import { useStats } from '../composables/useStats'
+import { useSnack } from '../composables/useSnack'
 
 defineEmits<{ (e: 'close'): void }>()
 const { stats, reset } = useStats()
+const { toast } = useSnack()
 
 const buckets = ['1', '2', '3', '4', '5', '6', '7', '8+']
 const max = computed(() => Math.max(1, ...buckets.map((b) => stats.value.distribution[b] ?? 0)))
 const winRate = computed(() => (stats.value.played ? Math.round((stats.value.wins / stats.value.played) * 100) : 0))
 
+const tiles = computed(() => [
+  { label: 'เล่นไป', value: stats.value.played },
+  { label: 'ชนะ %', value: winRate.value },
+  { label: 'ติดกัน', value: stats.value.streak },
+  { label: 'สูงสุด', value: stats.value.maxStreak },
+])
+
 function confirmReset() {
-  if (confirm('ล้างสถิติทั้งหมด? กู้คืนไม่ได้นะ')) reset()
+  // ล้างแล้วกู้คืนไม่ได้ เลยยังถามยืนยันก่อนเหมือนเดิม แล้วค่อยเด้ง snackbar บอกผล
+  if (!confirm('ล้างสถิติทั้งหมด? กู้คืนไม่ได้นะ')) return
+  reset()
+  toast('ล้างสถิติแล้ว')
 }
 </script>
 
 <template>
   <BaseDialog title="สถิติ" @close="$emit('close')">
-    <div class="mb-5 grid grid-cols-4 gap-2 text-center">
-      <div v-for="s in [
-        { label: 'เล่นไป', value: stats.played },
-        { label: 'ชนะ %', value: winRate },
-        { label: 'ติดกัน', value: stats.streak },
-        { label: 'สูงสุด', value: stats.maxStreak },
-      ]" :key="s.label">
-        <p class="font-display text-2xl font-bold tabular-nums text-bronze">{{ s.value }}</p>
-        <p class="text-[11px] text-cream/45">{{ s.label }}</p>
+    <div class="mb-6 grid grid-cols-4 gap-2">
+      <div v-for="s in tiles" :key="s.label" class="text-center">
+        <p class="m-0 text-[26px] leading-8 font-bold tabular-nums text-primary">{{ s.value }}</p>
+        <p class="mt-0.5 mb-0 text-[11px] leading-4 text-on-surface-var">{{ s.label }}</p>
       </div>
     </div>
 
-    <p class="mb-2 text-xs font-semibold text-cream/45">ทายกี่ครั้งถึงถูก</p>
-    <div class="flex flex-col gap-1">
+    <p class="mt-0 mb-2.5 text-[11px] leading-4 font-semibold tracking-wide text-outline">ทายกี่ครั้งถึงถูก</p>
+    <div class="flex flex-col gap-[5px]">
       <div v-for="b in buckets" :key="b" class="flex items-center gap-2">
-        <span class="w-5 text-xs text-cream/45">{{ b }}</span>
-        <div class="h-5 flex-1 overflow-hidden rounded bg-ink/50">
+        <span class="w-[18px] text-xs tabular-nums text-on-surface-var">{{ b }}</span>
+        <div class="h-[22px] flex-1 overflow-hidden rounded-[11px] bg-surface-highest">
           <div
-            class="flex h-full min-w-6 items-center justify-end rounded bg-bronze/70 px-1.5 text-[11px] font-semibold text-ink transition-[width] duration-500"
+            class="flex h-full min-w-[26px] items-center justify-end rounded-[11px] px-2.5 text-[11px] font-bold transition-[width] duration-500"
+            :class="
+              (stats.distribution[b] ?? 0) > 0
+                ? 'bg-primary text-on-primary'
+                : 'bg-surface-highest text-on-surface-var'
+            "
             :style="{ width: `${((stats.distribution[b] ?? 0) / max) * 100}%` }"
           >
             {{ stats.distribution[b] ?? 0 }}
@@ -44,10 +56,14 @@ function confirmReset() {
       </div>
     </div>
 
-    <p class="mt-4 text-[11px] leading-relaxed text-cream/35">
+    <p class="mt-[18px] mb-0 text-[11px] leading-[17px] text-outline">
       นับรวมทุกโหมด · สถิติเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น ล้างข้อมูลเบราว์เซอร์แล้วหาย
     </p>
-    <button type="button" class="mt-2 text-xs text-cream/35 underline transition hover:text-cream/70" @click="confirmReset">
+    <button
+      type="button"
+      class="mt-2.5 h-10 rounded-[20px] px-4 text-sm font-semibold text-error transition-colors hover:bg-surface-highest"
+      @click="confirmReset"
+    >
       ล้างสถิติ
     </button>
   </BaseDialog>

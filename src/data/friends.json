@@ -1,72 +1,110 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "group": "NAVEN",
   "updatedAt": "2026-09-15",
   "friends": [
     {
       "id": "nut",
       "nickname": "นัท",
-      "aliases": ["nut", "ไอ้นัท"],
+      "aliases": [
+        "nut",
+        "ไอ้นัท"
+      ],
       "photo": "friends/nut.webp",
       "attrs": {
-        "birthYear": 1995,
+        "birthday": "จันทร์",
         "height": 175,
-        "sports": ["ฟุตบอล", "แบดมินตัน"],
+        "sports": [
+          "ฟุตบอล",
+          "แบดมินตัน"
+        ],
         "football": "CM",
         "exTier": "กลาง",
         "status": "โสด",
-        "vibe": ["สายเกม", "สายกิน"],
+        "vibe": [
+          "สายเกม",
+          "สายกิน"
+        ],
         "job": "โปรแกรมเมอร์",
         "province": "กรุงเทพฯ"
       },
       "reveal": {
         "signature": "หายไปดื้อๆ ตอนตีสอง",
         "emoji": "🎮🍜🌙💻",
-        "quotes": ["เดี๋ยวมา", "ขอ 5 นาที"]
+        "quotes": [
+          "เดี๋ยวมา",
+          "ขอ 5 นาที"
+        ]
       }
     },
     {
       "id": "bank",
       "nickname": "แบงค์",
-      "aliases": ["bank", "ไอ้แบงค์"],
+      "aliases": [
+        "bank",
+        "ไอ้แบงค์"
+      ],
       "photo": "friends/bank.webp",
       "attrs": {
-        "birthYear": 1993,
+        "birthday": "เสาร์",
         "height": 182,
-        "sports": ["ฟุตบอล", "ยิม", "วิ่ง"],
+        "sports": [
+          "ฟุตบอล",
+          "ยิม",
+          "วิ่ง"
+        ],
         "football": "CB",
         "exTier": "มาก",
         "status": "มีแฟน",
-        "vibe": ["สายฟิต", "สายเที่ยว", "สายเหล้า"],
+        "vibe": [
+          "สายฟิต",
+          "สายเที่ยว",
+          "สายเหล้า"
+        ],
         "job": "เซลล์",
         "province": "ชลบุรี"
       },
       "reveal": {
         "signature": "ชวนไปยิมทุกวัน แต่ไปเองเดือนละครั้ง",
         "emoji": "💪🏖️🍺📈",
-        "quotes": ["พรุ่งนี้เริ่มคุมอาหาร", "จ่ายก่อน เดี๋ยวโอนคืน"]
+        "quotes": [
+          "พรุ่งนี้เริ่มคุมอาหาร",
+          "จ่ายก่อน เดี๋ยวโอนคืน"
+        ]
       }
     },
     {
       "id": "ping",
       "nickname": "ปิง",
-      "aliases": ["ping", "ไอ้ปิง"],
+      "aliases": [
+        "ping",
+        "ไอ้ปิง"
+      ],
       "photo": "friends/ping.webp",
       "attrs": {
-        "birthYear": 1996,
+        "birthday": "พฤหัสบดี",
         "height": 168,
-        "sports": ["แบดมินตัน", "อีสปอร์ต"],
+        "sports": [
+          "แบดมินตัน",
+          "อีสปอร์ต"
+        ],
         "football": "GK",
         "exTier": "น้อย",
         "status": "แต่งงานแล้ว",
-        "vibe": ["สายบ้าน", "สายเกม"],
+        "vibe": [
+          "สายบ้าน",
+          "สายเกม"
+        ],
         "job": "ราชการ",
         "province": "เชียงใหม่"
       },
       "reveal": {
         "signature": "อ่านข้อความแล้วไม่ตอบ 3 วัน",
         "emoji": "🏸🎮🏠💍",
-        "quotes": ["ติดธุระอ่ะ", "ขอถามเมียก่อน"]
+        "quotes": [
+          "ติดธุระอ่ะ",
+          "ขอถามเมียก่อน"
+        ]
       }
     }
   ]

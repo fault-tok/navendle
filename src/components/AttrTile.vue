@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { AttrDef, AttrValue, TileResult } from '../game/types'
+import MdIcon from './MdIcon.vue'
 
 const props = defineProps<{
   def: AttrDef
   value: AttrValue
   result: TileResult
-  /** ลำดับช่องในแถว ใช้หน่วงเวลา flip ให้ไล่ทีละช่อง */
+  /** ลำดับช่องในแถว ใช้หน่วงเวลาให้ช่องไล่โผล่ทีละช่อง */
   index: number
 }>()
 
@@ -14,6 +15,11 @@ const text = computed(() => {
   const v = props.value
   if (Array.isArray(v)) return v.join(' · ')
   if (props.def.type === 'grouped') return String(v) === 'NONE' ? 'ไม่เล่น' : String(v)
+  if (props.def.type === 'banded') {
+    // โชว์แค่ช่วง ไม่เผยเลขจริง เช่น 175 -> "175–179 ซม."
+    const lo = Math.floor(Number(v) / props.def.band) * props.def.band
+    return `${lo}–${lo + props.def.band - 1}${props.def.suffix ?? ''}`
+  }
   if (props.def.type === 'numericFuzzy' || props.def.type === 'numeric') {
     const suffix = 'suffix' in props.def ? (props.def.suffix ?? '') : ''
     return `${v}${suffix}`
@@ -21,35 +27,38 @@ const text = computed(() => {
   return String(v)
 })
 
-const arrow = computed(() => (props.result.direction === 'up' ? '▲' : props.result.direction === 'down' ? '▼' : ''))
+const arrow = computed(() =>
+  props.result.direction === 'up' ? 'arrow_drop_up' : props.result.direction === 'down' ? 'arrow_drop_down' : '',
+)
 
-/** ไอคอนกำกับสี เผื่อคนตาบอดสีแยกเขียว/เหลืองไม่ออก */
-const mark = computed(() => ({ hit: '✓', near: '~', miss: '✕' })[props.result.state])
+/** ไอคอนกำกับสี เผื่อคนแยกสีไม่ออก (prop colorblindMarks ในดีไซน์ = เปิดไว้) */
+const mark = computed(() => ({ hit: 'check', near: 'drag_handle', miss: 'close' })[props.result.state])
 
 const tone = computed(
   () =>
     ({
-      hit: 'bg-hit/85 border-hit text-white',
-      near: 'bg-near/85 border-near text-ink',
-      miss: 'bg-miss/60 border-miss/80 text-cream/80',
+      hit: 'bg-hit border-hit-bd text-hit-fg',
+      near: 'bg-near border-near-bd text-near-fg',
+      miss: 'bg-miss border-miss-bd text-miss-fg',
     })[props.result.state],
 )
 
 const srState = computed(
-  () => ({ hit: 'ถูก', near: 'ใกล้เคียง', miss: 'ผิด' })[props.result.state] +
+  () =>
+    ({ hit: 'ถูก', near: 'ใกล้เคียง', miss: 'ผิด' })[props.result.state] +
     (props.result.direction === 'up' ? ' คำตอบมากกว่า' : props.result.direction === 'down' ? ' คำตอบน้อยกว่า' : ''),
 )
 </script>
 
 <template>
-  <div
-    class="tile-flip relative flex h-20 w-[5.5rem] shrink-0 flex-col items-center justify-center gap-0.5 rounded-lg border px-1.5 text-center sm:w-24"
+  <span
+    class="tile-in relative flex h-19 flex-col items-center justify-center gap-px rounded-xl border px-1.5 py-1 text-center"
     :class="tone"
-    :style="{ animationDelay: `${index * 90}ms` }"
+    :style="{ animationDelay: `${index * 70}ms` }"
   >
     <span class="sr-only">{{ def.label }}: {{ text }} — {{ srState }}</span>
-    <span aria-hidden="true" class="absolute top-1 right-1.5 text-[10px] leading-none opacity-70">{{ mark }}</span>
-    <span aria-hidden="true" class="text-xs leading-tight font-semibold break-words hyphens-auto">{{ text }}</span>
-    <span v-if="arrow" aria-hidden="true" class="text-sm leading-none">{{ arrow }}</span>
-  </div>
+    <MdIcon :name="mark" :size="13" class="absolute top-[3px] right-1 opacity-75" />
+    <span class="text-xs leading-[15px] font-semibold [overflow-wrap:anywhere] [text-wrap:pretty]">{{ text }}</span>
+    <MdIcon v-if="arrow" :name="arrow" :size="18" />
+  </span>
 </template>

@@ -34,6 +34,11 @@ export const VIBE_OPTIONS = [
 
 export const STATUS_OPTIONS = ['โสด', 'มีแฟน', 'แต่งงานแล้ว', 'ไม่ขอออกความเห็น'] as const
 
+/** วันเกิด = วันในสัปดาห์ที่เกิด เรียงแบบไทยคือเริ่มวันอาทิตย์ */
+export const WEEKDAY_OPTIONS = [
+  'อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์',
+] as const
+
 /**
  * นิยามคอลัมน์ทั้งหมดของโหมดคลาสสิก
  * ลำดับใน array = ลำดับคอลัมน์ในตาราง
@@ -41,18 +46,19 @@ export const STATUS_OPTIONS = ['โสด', 'มีแฟน', 'แต่งง�
  */
 export const ATTRIBUTES: readonly AttrDef[] = [
   {
-    key: 'birthYear',
-    label: 'ปีเกิด',
-    type: 'numeric',
-    hint: 'ลูกศรบอกว่าคำตอบเกิดก่อนหรือหลังคนที่ทาย',
+    key: 'birthday',
+    label: 'วันเกิด',
+    type: 'exact',
+    options: WEEKDAY_OPTIONS,
+    hint: 'วันในสัปดาห์ที่เกิด ตรงเป๊ะถึงจะเข้า',
   },
   {
     key: 'height',
     label: 'ส่วนสูง',
-    type: 'numericFuzzy',
-    tolerance: 4,
+    type: 'banded',
+    band: 5,
     suffix: ' ซม.',
-    hint: 'เหลือง = ห่างกันไม่เกิน 4 ซม.',
+    hint: 'บอกเป็นช่วงละ 5 ซม. ไม่บอกเลขจริง · เหลือง = ช่วงติดกัน',
   },
   {
     key: 'sports',

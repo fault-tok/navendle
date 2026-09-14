@@ -14,29 +14,34 @@ const hints = computed(() => {
   return [
     { label: 'สายอะไร', value: Array.isArray(a.vibe) ? a.vibe.join(' · ') : String(a.vibe) },
     { label: 'ตำแหน่งบอล', value: FOOTBALL_GROUP_LABELS[group as keyof typeof FOOTBALL_GROUP_LABELS] ?? '—' },
-    { label: 'ปีเกิด', value: String(a.birthYear) },
+    { label: 'วันเกิด', value: String(a.birthday) },
   ].map((h, i) => ({ ...h, unlocked: props.revealAll || props.wrongCount >= HINT_STEPS[i], at: HINT_STEPS[i] }))
 })
 </script>
 
 <template>
-  <div class="card flex flex-col gap-4 rounded-2xl px-4 py-7">
-    <p class="text-center text-sm text-cream/50">ใครพูดประโยคนี้ประจำ?</p>
-    <blockquote class="text-center text-xl leading-relaxed font-semibold text-cream sm:text-2xl">
-      <span class="text-bronze">“</span>{{ quote }}<span class="text-bronze">”</span>
+  <section class="flex flex-col gap-[18px] rounded-[28px] bg-surface-low px-5 py-7">
+    <p class="m-0 text-center text-sm leading-5 text-on-surface-var">ใครพูดประโยคนี้ประจำ?</p>
+    <blockquote class="m-0 text-center text-[26px] leading-9 font-semibold text-on-surface">
+      <span class="text-tertiary">“</span>{{ quote }}<span class="text-tertiary">”</span>
     </blockquote>
 
-    <div class="grid gap-1.5 sm:grid-cols-3">
+    <div class="grid gap-2 [grid-template-columns:repeat(auto-fit,minmax(150px,1fr))]">
       <div
         v-for="h in hints"
         :key="h.label"
-        class="rounded-lg border px-3 py-2 text-center transition"
-        :class="h.unlocked ? 'pop-in border-bronze/35 bg-bronze/10' : 'border-bronze/12 bg-ink/30'"
+        class="rounded-2xl border px-3 py-2.5 text-center"
+        :class="
+          h.unlocked
+            ? 'pop-in border-secondary-container bg-secondary-container text-on-secondary-container'
+            : 'border-dashed border-outline-var text-on-surface-var'
+        "
       >
-        <p class="text-[11px] text-cream/40">{{ h.label }}</p>
-        <p v-if="h.unlocked" class="text-sm font-semibold">{{ h.value }}</p>
-        <p v-else class="text-xs text-cream/30">ผิดครบ {{ h.at }} ครั้งถึงเปิด</p>
+        <p class="m-0 text-[11px] leading-4 tracking-wide text-outline">{{ h.label }}</p>
+        <p class="mt-[3px] mb-0 text-sm leading-5 font-semibold">
+          {{ h.unlocked ? h.value : `ผิดครบ ${h.at} ครั้งถึงเปิด` }}
+        </p>
       </div>
     </div>
-  </div>
+  </section>
 </template>

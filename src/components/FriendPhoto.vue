@@ -2,10 +2,10 @@
 import { computed, ref, watch } from 'vue'
 import type { Friend } from '../game/types'
 
-const props = withDefaults(defineProps<{ friend: Friend; blur?: number; scale?: number }>(), {
-  blur: 0,
-  scale: 1,
-})
+const props = withDefaults(
+  defineProps<{ friend: Friend; blur?: number; scale?: number; circle?: boolean }>(),
+  { blur: 0, scale: 1, circle: false },
+)
 
 const failed = ref(false)
 watch(() => props.friend.id, () => (failed.value = false))
@@ -14,7 +14,10 @@ const src = computed(() => `${import.meta.env.BASE_URL}${props.friend.photo}`)
 </script>
 
 <template>
-  <div class="relative aspect-square w-full overflow-hidden rounded-2xl border border-bronze/30 bg-teal/40">
+  <div
+    class="relative aspect-square w-full overflow-hidden bg-primary-container [container-type:inline-size]"
+    :class="circle ? 'rounded-full' : 'rounded-3xl'"
+  >
     <img
       v-if="!failed"
       :src="src"
@@ -26,10 +29,11 @@ const src = computed(() => `${import.meta.env.BASE_URL}${props.friend.photo}`)
     <!-- ยังไม่ได้ใส่รูป: โชว์ตัวอักษรแทน เกมยังเล่นต่อได้ -->
     <div
       v-else
-      class="grid h-full w-full place-items-center bg-gradient-to-br from-teal to-ink"
+      class="grid h-full w-full place-items-center text-on-primary-container"
       :style="{ filter: `blur(${Math.min(blur, 8)}px)` }"
     >
-      <span class="font-display text-5xl font-bold text-bronze/60">{{ friend.nickname.slice(0, 2) }}</span>
+      <!-- cqw = ยึดตามความกว้างกล่อง ตัวอักษรจะโตตามรูปทุกขนาด -->
+      <span class="text-[34cqw] leading-none font-bold">{{ friend.nickname.slice(0, 2) }}</span>
     </div>
   </div>
 </template>

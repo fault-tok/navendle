@@ -2,6 +2,7 @@
 import { computed, nextTick, ref, watch } from 'vue'
 import type { Friend } from '../game/types'
 import { searchFriends } from '../data/roster'
+import MdIcon from './MdIcon.vue'
 
 const props = defineProps<{ pool: readonly Friend[]; disabled: boolean }>()
 const emit = defineEmits<{ (e: 'guess', friendId: string): void }>()
@@ -52,11 +53,12 @@ function onKeydown(e: KeyboardEvent) {
 
 <template>
   <div class="relative">
+    <!-- search bar ทรง M3 สูง 56 มุมมน 28 -->
     <div
-      class="flex items-center gap-2 rounded-xl border px-3 py-2.5 transition"
-      :class="disabled ? 'border-bronze/15 opacity-50' : 'border-bronze/35 focus-within:border-bronze'"
+      class="flex h-14 items-center gap-2.5 rounded-[28px] bg-surface-high px-4 transition-opacity"
+      :class="disabled ? 'opacity-50' : ''"
     >
-      <span aria-hidden="true" class="text-cream/40">🔍</span>
+      <MdIcon name="search" class="text-on-surface-var" />
       <input
         ref="inputEl"
         v-model="query"
@@ -66,10 +68,11 @@ function onKeydown(e: KeyboardEvent) {
         autocapitalize="off"
         spellcheck="false"
         role="combobox"
+        aria-label="ทายชื่อเพื่อน"
         aria-autocomplete="list"
         :aria-expanded="open"
         :placeholder="disabled ? 'ทายถูกแล้ว' : 'พิมพ์ชื่อเล่นเพื่อน…'"
-        class="w-full bg-transparent text-base text-cream outline-none placeholder:text-cream/35"
+        class="min-w-0 flex-1 bg-transparent text-base leading-6 text-on-surface outline-none placeholder:text-on-surface-var"
         @focus="open = true"
         @input="open = true"
         @blur="open = false"
@@ -78,11 +81,12 @@ function onKeydown(e: KeyboardEvent) {
       <button
         v-if="query"
         type="button"
-        class="text-cream/40 transition hover:text-cream"
+        class="grid h-9 w-9 shrink-0 place-items-center rounded-full text-on-surface-var transition-colors hover:bg-surface-highest hover:text-on-surface"
         title="ล้าง"
+        aria-label="ล้าง"
         @mousedown.prevent="query = ''"
       >
-        ✕
+        <MdIcon name="close" :size="20" />
       </button>
     </div>
 
@@ -90,7 +94,7 @@ function onKeydown(e: KeyboardEvent) {
       v-if="open && matches.length && !disabled"
       ref="listEl"
       role="listbox"
-      class="card absolute z-20 mt-1.5 max-h-64 w-full overflow-y-auto rounded-xl p-1 shadow-2xl shadow-black/50"
+      class="absolute inset-x-0 top-[62px] z-20 max-h-65 list-none overflow-y-auto rounded-2xl bg-surface-c p-2 shadow-[0_8px_24px_rgba(0,0,0,.55)]"
     >
       <li
         v-for="(f, i) in matches"
@@ -98,19 +102,25 @@ function onKeydown(e: KeyboardEvent) {
         role="option"
         :aria-selected="i === active"
         :data-active="i === active"
-        class="flex cursor-pointer items-center gap-2.5 rounded-lg px-2.5 py-2 transition"
-        :class="i === active ? 'bg-bronze/20' : 'hover:bg-cream/5'"
+        class="flex cursor-pointer items-center gap-3 rounded-xl px-2.5 py-2 text-on-surface transition-colors"
+        :class="i === active ? 'bg-surface-highest' : ''"
         @mousedown.prevent="submit(f)"
         @mouseenter="active = i"
       >
-        <span class="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full bg-teal text-xs text-cream/60">
+        <span
+          aria-hidden="true"
+          class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary-container text-[13px] font-semibold text-on-primary-container"
+        >
           {{ f.nickname.slice(0, 2) }}
         </span>
-        <span class="font-medium">{{ f.nickname }}</span>
+        <span class="text-base leading-6">{{ f.nickname }}</span>
       </li>
     </ul>
 
-    <p v-if="open && !matches.length && query && !disabled" class="card absolute z-20 mt-1.5 w-full rounded-xl px-3 py-2.5 text-sm text-cream/50">
+    <p
+      v-if="open && !matches.length && query && !disabled"
+      class="absolute inset-x-0 top-[62px] z-20 m-0 rounded-2xl bg-surface-c px-4 py-3.5 text-sm text-on-surface-var shadow-[0_8px_24px_rgba(0,0,0,.55)]"
+    >
       ไม่เจอชื่อนี้ในกลุ่ม
     </p>
   </div>

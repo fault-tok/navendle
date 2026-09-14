@@ -47,6 +47,15 @@ export function compareAttr(def: AttrDef, guessValue: AttrValue, answerValue: At
       return { state, direction: directionOf(a, g) }
     }
 
+    case 'banded': {
+      // หั่นเป็นช่วงก่อนค่อยเทียบ เกมจะไม่เผยเลขจริง บอกแค่ว่าอยู่ช่วงไหน
+      const g = Math.floor(Number(guessValue) / def.band)
+      const a = Math.floor(Number(answerValue) / def.band)
+      if (g === a) return { state: 'hit' }
+      // ช่วงติดกันถือว่าใกล้ — ลูกศรเทียบจากช่วง ไม่ใช่เลขจริง จะได้ไม่ขัดกับสีที่เห็น
+      return { state: Math.abs(a - g) === 1 ? 'near' : 'miss', direction: directionOf(a, g) }
+    }
+
     case 'ordinal': {
       const gi = def.scale.indexOf(String(guessValue))
       const ai = def.scale.indexOf(String(answerValue))

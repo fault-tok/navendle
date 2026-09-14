@@ -36,6 +36,7 @@ const sportOptions = readStringArray('src/data/attributes.ts', 'SPORT_OPTIONS')
 const vibeOptions = readStringArray('src/data/attributes.ts', 'VIBE_OPTIONS')
 const statusOptions = readStringArray('src/data/attributes.ts', 'STATUS_OPTIONS')
 const exTiers = readStringArray('src/data/attributes.ts', 'EX_TIERS')
+const weekdayOptions = readStringArray('src/data/attributes.ts', 'WEEKDAY_OPTIONS')
 const provinces = readStringArray('src/data/provinces.ts', 'PROVINCES')
 const footballPositions = Object.keys(
   Object.fromEntries(
@@ -46,6 +47,7 @@ const footballPositions = Object.keys(
 )
 
 const optionsByKey = {
+  birthday: weekdayOptions,
   sports: sportOptions,
   vibe: vibeOptions,
   status: statusOptions,
@@ -105,7 +107,7 @@ for (const [i, f] of data.friends.entries()) {
       fail(`[${who}] ขาด attrs.${def.key} (${def.label})`)
       continue
     }
-    if (def.type === 'numeric' || def.type === 'numericFuzzy') {
+    if (def.type === 'numeric' || def.type === 'numericFuzzy' || def.type === 'banded') {
       if (typeof v !== 'number' || !Number.isFinite(v)) fail(`[${who}] attrs.${def.key} ต้องเป็นตัวเลข`)
       continue
     }
@@ -130,7 +132,7 @@ for (const [i, f] of data.friends.entries()) {
     if (options && !options.includes(v)) {
       const msg = `[${who}] attrs.${def.key} = "${v}" ไม่อยู่ในลิสต์ที่กำหนด`
       // จังหวัด/ตำแหน่งบอล/tier ต้องตรงลิสต์เป๊ะ เพราะเกมใช้เทียบตรงๆ
-      if (['province', 'football', 'exTier', 'status'].includes(def.key)) fail(msg)
+      if (['province', 'football', 'exTier', 'status', 'birthday'].includes(def.key)) fail(msg)
       else warn(msg)
     }
   }

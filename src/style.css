@@ -1,21 +1,64 @@
 @import 'tailwindcss';
 
-/* โทนสีดึงจากโลโก้ 2 ไฟล์: ตัว N ไล่เฉด cream→teal และตราโล่ NAVEN สีบรอนซ์ */
+/*
+ * Material 3 (Material You) — dark scheme, purple baseline.
+ * ค่าสีทั้งหมดมาจากไฟล์ดีไซน์ "Navendle Material You.dc.html" ตรงๆ
+ * ชื่อ token เรียงตาม role ของ M3 เพื่อให้เทียบกับดีไซน์ได้ทีละบรรทัด
+ */
 @theme {
-  --color-cream: #f7f0da;
-  --color-bronze: #c9a47a;
-  --color-bronze-dim: #8a6f4e;
-  --color-teal: #1e4351;
-  --color-teal-deep: #15303a;
-  --color-ink: #0d1114;
+  /* surface roles — ไล่จากพื้นหลังสุดไปชั้นที่ลอยสุด */
+  --color-surface: #141218;
+  --color-surface-low: #1d1b20;
+  --color-surface-c: #211f26;
+  --color-surface-high: #2b2930;
+  --color-surface-highest: #36343b;
+  --color-on-surface: #e6e1e5;
+  --color-on-surface-var: #cac4d0;
 
-  --color-hit: #2f8f5b;
-  --color-near: #d9a441;
-  --color-miss: #3a4a52;
+  --color-outline: #938f99;
+  --color-outline-var: #49454f;
 
-  --font-sans: 'IBM Plex Sans Thai', ui-sans-serif, system-ui, sans-serif;
-  /* ใช้ IBM Plex Sans Thai ทั้งเว็บ — display ต่างจาก sans แค่น้ำหนักกับระยะตัวอักษร */
-  --font-display: 'IBM Plex Sans Thai', ui-sans-serif, system-ui, sans-serif;
+  /* primary — สีหลักของแอป ใช้กับปุ่มหลัก ตัวเลขสถิติ ลิงก์ */
+  --color-primary: #d0bcff;
+  --color-on-primary: #381e72;
+  --color-primary-container: #4f378b;
+  --color-on-primary-container: #eaddff;
+  --color-primary-border: #6750a4;
+
+  /* secondary — ชิป แท็บที่เลือกอยู่ คำใบ้ที่ปลดแล้ว */
+  --color-secondary-container: #4a4458;
+  --color-on-secondary-container: #e8def8;
+
+  /* tertiary — เครื่องหมายคำพูด วลีประจำตัว ไอคอนโหมด */
+  --color-tertiary: #efb8c8;
+  --color-tertiary-container: #633b48;
+  --color-on-tertiary-container: #ffd8e4;
+  --color-tertiary-border: #8b5a6b;
+
+  --color-error: #f2b8b5;
+
+  /* inverse — ใช้กับ snackbar เท่านั้น */
+  --color-inverse-surface: #e6e1e5;
+  --color-inverse-on-surface: #313033;
+
+  /*
+   * สีช่องผลทาย (tileScheme = "tonal" ตาม default ในดีไซน์)
+   * สลับไป "vivid" ได้โดยแก้แค่ 9 บรรทัดนี้:
+   *   hit  #d0bcff / #381e72 / #d0bcff
+   *   near #efb8c8 / #492532 / #efb8c8
+   *   miss #36343b / #cac4d0 / #49454f
+   */
+  --color-hit: #4f378b;
+  --color-hit-fg: #eaddff;
+  --color-hit-bd: #6750a4;
+  --color-near: #633b48;
+  --color-near-fg: #ffd8e4;
+  --color-near-bd: #8b5a6b;
+  --color-miss: #2b2930;
+  --color-miss-fg: #cac4d0;
+  --color-miss-bd: #49454f;
+
+  --font-sans: Roboto, 'Noto Sans Thai', ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -25,50 +68,55 @@
 body {
   margin: 0;
   min-height: 100dvh;
-  background:
-    radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--color-teal) 60%, transparent), transparent 70%),
-    linear-gradient(180deg, var(--color-teal-deep) 0%, var(--color-ink) 100%);
-  background-attachment: fixed;
-  color: var(--color-cream);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
-/* ตัวอักษรวิ่งของหัวเว็บ ใช้ไล่เฉดเดียวกับโลโก้ตัว N */
-.wordmark {
-  background: linear-gradient(155deg, var(--color-cream) 0%, var(--color-bronze) 45%, var(--color-teal) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+::selection {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary-container);
 }
 
-.card {
-  background: color-mix(in srgb, var(--color-ink) 55%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-bronze) 28%, transparent);
-  backdrop-filter: blur(6px);
+/* ไอคอน Material Symbols — ขนาดคุมด้วย font-size ของ element ที่ครอบ */
+.msr {
+  font-family: 'Material Symbols Rounded';
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
 }
 
-@keyframes tile-flip {
-  0% { transform: rotateX(-90deg); opacity: 0; }
-  60% { transform: rotateX(12deg); opacity: 1; }
-  100% { transform: rotateX(0deg); opacity: 1; }
+@keyframes tile-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.94); }
+  to { opacity: 1; transform: none; }
 }
-
-.tile-flip {
-  animation: tile-flip 420ms ease-out both;
-  transform-origin: center;
-}
+.tile-in { animation: tile-in 280ms ease-out both; }
 
 @keyframes pop-in {
-  from { transform: scale(0.94); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: none; }
 }
+.pop-in { animation: pop-in 250ms ease-out both; }
 
-.pop-in { animation: pop-in 260ms ease-out both; }
+/* ใช้ property `translate` แยกจาก `transform` เพื่อไม่ให้ทับ -translate-x-1/2 ที่ใช้จัดกึ่งกลาง
+   (ถ้าใส่ใน transform แล้ว prefers-reduced-motion ปิด animation จะเด้งหลุดกลางจอ) */
+@keyframes snack-in {
+  from { opacity: 0; translate: 0 16px; }
+  to { opacity: 1; translate: 0 0; }
+}
+.snack-in { animation: snack-in 200ms ease-out both; }
 
 @media (prefers-reduced-motion: reduce) {
-  .tile-flip,
-  .pop-in {
+  .tile-in,
+  .pop-in,
+  .snack-in {
     animation: none !important;
   }
 }
@@ -77,10 +125,12 @@ body {
 .scroll-x {
   overflow-x: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-bronze-dim) transparent;
+  scrollbar-color: var(--color-outline-var) transparent;
 }
-.scroll-x::-webkit-scrollbar { height: 6px; }
+.scroll-x::-webkit-scrollbar { height: 8px; }
+.scroll-x::-webkit-scrollbar-track { background: transparent; }
 .scroll-x::-webkit-scrollbar-thumb {
-  background: var(--color-bronze-dim);
-  border-radius: 999px;
+  background: var(--color-outline-var);
+  border-radius: 8px;
 }
+.scroll-x::-webkit-scrollbar-thumb:hover { background: #6f6b75; }

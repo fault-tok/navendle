@@ -18,6 +18,7 @@ import SilhouettePanel from './components/SilhouettePanel.vue'
 import ResultCard from './components/ResultCard.vue'
 import StatsDialog from './components/StatsDialog.vue'
 import HowToPlayDialog from './components/HowToPlayDialog.vue'
+import SnackBar from './components/SnackBar.vue'
 
 const MODES: GameMode[] = ['classic', 'emoji', 'quote', 'silhouette']
 
@@ -62,19 +63,22 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mx-auto flex min-h-dvh w-full max-w-3xl flex-col">
+  <div class="mx-auto w-full max-w-[840px] px-4">
     <AppHeader :streak="stats.streak" @open="dialog = $event" />
     <ModeTabs :current="mode" :done="done" @change="mode = $event" />
 
-    <main class="flex flex-1 flex-col gap-4 px-4 pt-4 pb-10 sm:px-6">
+    <main class="flex flex-col gap-4 pt-3 pb-10">
       <!-- ยังไม่มีข้อมูลเพื่อนพอเล่น -->
-      <div v-if="friends.length < 2" class="card rounded-2xl p-6 text-center text-sm text-cream/70">
-        <p class="mb-2 text-lg">ยังไม่มีข้อมูลเพื่อนพอเล่น</p>
-        <p class="text-cream/50">เติมข้อมูลใน <code class="font-sans font-semibold text-bronze">src/data/friends.json</code> อย่างน้อย 2 คน แล้วรัน <code class="font-sans font-semibold text-bronze">npm run validate</code></p>
+      <div v-if="friends.length < 2" class="rounded-[28px] bg-surface-low p-6 text-center text-sm text-on-surface-var">
+        <p class="mt-0 mb-2 text-lg text-on-surface">ยังไม่มีข้อมูลเพื่อนพอเล่น</p>
+        <p class="m-0 text-outline">
+          เติมข้อมูลใน <code class="font-sans font-semibold text-primary">src/data/friends.json</code> อย่างน้อย 2 คน
+          แล้วรัน <code class="font-sans font-semibold text-primary">npm run validate</code>
+        </p>
       </div>
 
       <template v-else>
-        <div class="flex items-center justify-between text-xs text-cream/45">
+        <div class="flex items-center justify-between gap-3 text-xs leading-4 tracking-wide text-on-surface-var">
           <span>
             <template v-if="game.freePlay">ฟรีเพลย์ · {{ MODE_LABELS[mode] }}</template>
             <template v-else>ข้อที่ {{ puzzleNumber(dayIndex) }} · {{ MODE_LABELS[mode] }}</template>
@@ -82,7 +86,7 @@ onMounted(() => {
           <button
             v-if="game.freePlay"
             type="button"
-            class="underline transition hover:text-cream"
+            class="text-primary underline"
             @click="game.backToDaily()"
           >
             กลับไปข้อประจำวัน
@@ -127,28 +131,32 @@ onMounted(() => {
 
         <!-- ตารางคุณสมบัติ: โหมดคลาสสิกโชว์ทุกแถว โหมดอื่นเป็นแค่รายชื่อที่ทายไปแล้ว -->
         <GuessTable v-if="mode === 'classic'" :rows="game.rows" />
-        <div v-else-if="game.rows.length" class="flex flex-wrap gap-1.5">
+        <div v-else-if="game.rows.length" class="flex flex-wrap gap-2">
           <span
             v-for="row in [...game.rows].reverse()"
             :key="row.friend.id"
-            class="rounded-lg border px-2.5 py-1.5 text-sm"
-            :class="row.friend.id === game.answer.id ? 'border-hit bg-hit/25 text-cream' : 'border-miss/70 bg-miss/30 text-cream/60'"
+            class="rounded-lg px-3.5 py-[7px] text-sm font-medium"
+            :class="
+              row.friend.id === game.answer.id
+                ? 'bg-hit text-hit-fg'
+                : 'bg-surface-high text-on-surface-var'
+            "
           >
             {{ row.friend.nickname }}
           </span>
         </div>
-
-        <p v-if="!game.rows.length && mode === 'classic'" class="py-6 text-center text-sm text-cream/40">
-          พิมพ์ชื่อเพื่อนสักคนเพื่อเริ่มไล่เบาะแส
-        </p>
       </template>
     </main>
 
-    <footer class="px-4 pb-6 text-center text-[11px] text-cream/25 sm:px-6">
+    <footer class="pb-7 text-center text-[11px] leading-4 text-outline">
       navendle · ทำเล่นกันในกลุ่ม NAVEN
     </footer>
 
-    <StatsDialog v-if="dialog === 'stats'" @close="dialog = null" />
-    <HowToPlayDialog v-if="dialog === 'howto'" @close="dialog = null" />
+    <!-- เว้นที่ให้ navigation bar ที่ลอยอยู่ล่างจอ (เฉพาะจอแคบ) -->
+    <div class="h-23 sm:hidden"></div>
   </div>
+
+  <StatsDialog v-if="dialog === 'stats'" @close="dialog = null" />
+  <HowToPlayDialog v-if="dialog === 'howto'" @close="dialog = null" />
+  <SnackBar />
 </template>
