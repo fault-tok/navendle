@@ -4,104 +4,66 @@
   "updatedAt": "2026-09-15",
   "friends": [
     {
-      "id": "nut",
-      "nickname": "นัท",
-      "aliases": [
-        "nut",
-        "ไอ้นัท"
-      ],
-      "photo": "friends/nut.webp",
+      "id": "it",
+      "nickname": "อิฐ",
+      "aliases": ["อ้อย", "บักดำ", "บักขยะ"],
+      "photo": "friends/it.jpg",
       "attrs": {
-        "birthday": "จันทร์",
-        "height": 175,
-        "sports": [
-          "ฟุตบอล",
-          "แบดมินตัน"
-        ],
+        "birthday": "พฤหัสบดี",
+        "height": 176,
+        "sports": ["ฟุตบอล", "อีสปอร์ต"],
         "football": "CM",
+        "status": "มีแฟน",
+        "vibe": ["สายเกม", "สายเที่ยว"],
+        "job": "ขายเสื้อผ้า / ช่างตัดผม",
+        "province": "ศรีสะเกษ"
+      },
+      "reveal": {
+        "signature": "ร้องเพลงไม่เพราะ แต่ก็ขยันร้อง",
+        "emoji": "🎮👕🍜🎉",
+        "quotes": ["แม่งเอ้ย"]
+      }
+    },
+    {
+      "id": "kaitok",
+      "nickname": "ไข่ตอก",
+      "aliases": ["kaitok"],
+      "photo": "friends/kaitok.jpg",
+      "attrs": {
+        "birthday": "อังคาร",
+        "height": 170,
+        "sports": ["ฟุตบอล", "ยิม"],
+        "football": "ST",
         "status": "โสด",
-        "vibe": [
-          "สายเกม",
-          "สายกิน"
-        ],
-        "job": "โปรแกรมเมอร์",
+        "vibe": ["สายกิน", "สายเที่ยว"],
+        "job": "ค้าขาย",
+        "province": "ศรีสะเกษ"
+      },
+      "reveal": {
+        "signature": "[mock] ยังไม่ได้กรอกข้อมูลจริง รอเจ้าตัวส่งมา",
+        "emoji": "⚽🍜🎵",
+        "quotes": ["[mock] ยังไม่ได้กรอก"]
+      }
+    },
+    {
+      "id": "kan",
+      "nickname": "กัน",
+      "aliases": ["kan"],
+      "photo": "friends/kan.jpg",
+      "attrs": {
+        "birthday": "อาทิตย์",
+        "height": 181,
+        "sports": ["ฟุตบอล", "วิ่ง"],
+        "football": "CB",
+        "status": "มีแฟน",
+        "vibe": ["สายฟิต", "สายรถ"],
+        "job": "พนักงานบริษัท",
         "province": "กรุงเทพฯ"
       },
       "reveal": {
-        "signature": "หายไปดื้อๆ ตอนตีสอง",
-        "emoji": "🎮🍜🌙💻",
-        "quotes": [
-          "เดี๋ยวมา",
-          "ขอ 5 นาที"
-        ]
-      }
-    },
-    {
-      "id": "bank",
-      "nickname": "แบงค์",
-      "aliases": [
-        "bank",
-        "ไอ้แบงค์"
-      ],
-      "photo": "friends/bank.webp",
-      "attrs": {
-        "birthday": "เสาร์",
-        "height": 182,
-        "sports": [
-          "ฟุตบอล",
-          "ยิม",
-          "วิ่ง"
-        ],
-        "football": "CB",
-        "status": "มีแฟน",
-        "vibe": [
-          "สายฟิต",
-          "สายเที่ยว",
-          "สายเหล้า"
-        ],
-        "job": "เซลล์",
-        "province": "ชลบุรี"
-      },
-      "reveal": {
-        "signature": "ชวนไปยิมทุกวัน แต่ไปเองเดือนละครั้ง",
-        "emoji": "💪🏖️🍺📈",
-        "quotes": [
-          "พรุ่งนี้เริ่มคุมอาหาร",
-          "จ่ายก่อน เดี๋ยวโอนคืน"
-        ]
-      }
-    },
-    {
-      "id": "ping",
-      "nickname": "ปิง",
-      "aliases": [
-        "ping",
-        "ไอ้ปิง"
-      ],
-      "photo": "friends/ping.webp",
-      "attrs": {
-        "birthday": "พฤหัสบดี",
-        "height": 168,
-        "sports": [
-          "แบดมินตัน",
-          "อีสปอร์ต"
-        ],
-        "football": "GK",
-        "status": "แต่งงานแล้ว",
-        "vibe": [
-          "สายบ้าน",
-          "สายเกม"
-        ],
-        "job": "ราชการ",
-        "province": "เชียงใหม่"
-      },
-      "reveal": {
-        "signature": "อ่านข้อความแล้วไม่ตอบ 3 วัน",
-        "emoji": "🏸🎮🏠💍",
-        "quotes": [
-          "ติดธุระอ่ะ",
-          "ขอถามเมียก่อน"
-        ]
+        "signature": "[mock] ยังไม่ได้กรอกข้อมูลจริง รอเจ้าตัวส่งมา",
+        "emoji": "⚽💪🚗",
+        "quotes": ["[mock] ยังไม่ได้กรอก"]
       }
     }
   ]
