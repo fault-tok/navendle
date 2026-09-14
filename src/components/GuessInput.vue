@@ -102,18 +102,12 @@ function onKeydown(e: KeyboardEvent) {
         role="option"
         :aria-selected="i === active"
         :data-active="i === active"
-        class="flex cursor-pointer items-center gap-3 rounded-xl px-2.5 py-2 text-on-surface transition-colors"
+        class="cursor-pointer rounded-xl px-3 py-3 text-base leading-6 text-on-surface transition-colors"
         :class="i === active ? 'bg-surface-highest' : ''"
         @mousedown.prevent="submit(f)"
         @mouseenter="active = i"
       >
-        <span
-          aria-hidden="true"
-          class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary-container text-[13px] font-semibold text-on-primary-container"
-        >
-          {{ f.nickname.slice(0, 2) }}
-        </span>
-        <span class="text-base leading-6">{{ f.nickname }}</span>
+        {{ f.nickname }}
       </li>
     </ul>
 
